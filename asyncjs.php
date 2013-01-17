@@ -96,3 +96,4 @@ class AsynchronousAssets {
 }
 
 AsynchronousAssets::init();
+?>
