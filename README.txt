@@ -11,7 +11,7 @@ Improve page load performance by asynchronously loading javascript and CSS files
 
 == Installation ==
 
-1. Upload `asynchronous-assets` folder to the `/wp-content/plugins/` directory
+1. Upload `wordpress-asynchronous-assets` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
