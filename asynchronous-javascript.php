@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Asynchronous Javascript
-Plugin URI: https://github.com/parisholley/wordpress-asynchronous-javascript
+Plugin URI: http://wordpress.org/extend/plugins/asynchronous-javascript/
 Description: Improve page load performance by asynchronously loading javascript using head.js
 Version: 1.1.2
 Author: Paris Holley
