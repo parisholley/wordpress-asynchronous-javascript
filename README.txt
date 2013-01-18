@@ -6,9 +6,15 @@ Requires at least: 3.5
 Tested up to: 3.5
 Stable tag: trunk
 
+Improve page load performance by asynchronously loading javascript using head.js
+
 == Description ==
 
-Improve page load performance by asynchronously loading javascript using head.js
+This plugin is meant to be a drop-in to your wordpress installation with no additional configuration. The goals/features of this plugin are:
+
+* Load javascript files in an asynchronous manner to improve time to DomReady/OnLoad
+* Use existing wordpress APIs for backwards compatability and prevent coupling to this plugin
+* Leverage dependency model wordpress provides for assets to improve loading performance
 
 
 == Installation ==
@@ -28,5 +34,15 @@ As long as those plugins are using the built-in wordpress script queuing and not
 
 == Changelog ==
 
+= 1.1 =
+* Removed `wp_enqueue_async_script()`, should be able to use normal wordpress method `wp_enqueue_script()`
+* Updated normal enqueue processing to use dependencies, will need to improve upon this in future.
+
 = 1.0 =
 * Initial release, seems to work. :)
+
+== Upgrade Notice ==
+
+= 1.1 =
+* Dependencies are now honored and it is recommended that you use this version instead of 1.0
+* `wp_enqueue_async_script()` is no longer available for use in the theme
