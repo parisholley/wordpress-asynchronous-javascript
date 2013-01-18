@@ -16,6 +16,10 @@ This plugin is meant to be a drop-in to your wordpress installation with no addi
 * Use existing wordpress APIs for backwards compatability and prevent coupling to this plugin
 * Leverage dependency model wordpress provides for assets to improve loading performance
 
+Please submit bugs or contributions to the github location and not here on wordpress' system:
+
+https://github.com/parisholley/wordpress-asynchronous-javascript/
+
 
 == Installation ==
 
