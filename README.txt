@@ -1,7 +1,7 @@
 === Asynchronous Javascript ===
 Contributors: parisholley
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paris%40holleywoodproductions%2ecom&lc=US&item_name=Paris%20Holley&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
-Tags: async,headjs,asynchronous,performance,javascript
+Tags: async,js,headjs,asynchronous,javascript,performance
 Requires at least: 3.5
 Tested up to: 3.5
 Stable tag: trunk
@@ -20,6 +20,8 @@ Please submit bugs or contributions to the github location and not here on wordp
 
 https://github.com/parisholley/wordpress-asynchronous-javascript/
 
+SEO: async js, asynchronous js, async javascript
+
 
 == Installation ==
 
@@ -32,10 +34,17 @@ https://github.com/parisholley/wordpress-asynchronous-javascript/
 
 As long as those plugins are using the built-in wordpress script queuing and not attempting to output scripts manually (such as invoking wp_print_scripts()), you should have no problems. If you find plugins that don't work properly (or without modifications), let me know and I will maintain an incompatibility list.
 
+== Incompatibility ==
+
+This plugin will not work out the box with the following plugins (unless they are modified to support asynchronous loading).
+
+* Jetpack by WordPress.com (social plugin)
+* WP Most Popular
+
 == Changelog ==
 
 = 1.1.1 =
-* Updated readme
+* Updated readme and versioning
 
 = 1.1 =
 * Removed `wp_enqueue_async_script()`, should be able to use normal wordpress method `wp_enqueue_script()`
