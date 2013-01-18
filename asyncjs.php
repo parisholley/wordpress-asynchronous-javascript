@@ -31,18 +31,21 @@ class AsynchronousAssets {
 	private static $head_loaded = false;
 
 	function init() {
-		add_action('wp_print_scripts', 'AsynchronousAssets::action_prevent_script_output' );
-		add_filter('script_loader_src', 'AsynchronousAssets::filter_queue_script', 10, 2 );
-		add_filter('print_footer_scripts', 'AsynchronousAssets::filter_headjs' );
-		add_filter('print_head_scripts', 'AsynchronousAssets::filter_headjs' );
+		if(!defined('WP_ADMIN') || !WP_ADMIN){
+			add_action('wp_print_scripts', 'AsynchronousAssets::action_prevent_script_output' );
+			add_filter('script_loader_src', 'AsynchronousAssets::filter_queue_script', 10, 2 );
+			add_filter('print_footer_scripts', 'AsynchronousAssets::filter_headjs' );
+			add_filter('print_head_scripts', 'AsynchronousAssets::filter_headjs' );
+		}
 	}
 
 	/**
 	 * Prevent wordpress from outputing scripts to page
 	 **/
 	function action_prevent_script_output() {
-		global $wp_scripts;
+		global $wp_scripts, $concatenate_scripts;
 
+		$concatenate_scripts = true;
 		$wp_scripts->do_concat = true;
 	}
 	
@@ -51,7 +54,7 @@ class AsynchronousAssets {
 	 * Wordpress has no ability to hook into script queuing, so this is a work around
 	 **/
 	function filter_queue_script($src, $handle) {
-		self::$queue[] = "{'{$handle}': '$src'}";
+		self::$queue[$handle] = "{'{$handle}': '$src'}";
 	}
 
 	/**
@@ -59,7 +62,7 @@ class AsynchronousAssets {
 	 **/
 	function filter_headjs(){
 		if(count(self::$queue) > 0){
-			if(!$head_loaded){
+			if(!self::$head_loaded){
 				echo '<script type="text/javascript" src="' . plugins_url( '/js/head.load.min.js', __FILE__ ) . '"></script>';
 			
 				self::$head_loaded = true;
