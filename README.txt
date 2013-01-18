@@ -1,10 +1,12 @@
-=== Plugin Name ===
+=== Asynchronous Javascript ===
 Contributors: parisholley
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paris%40holleywoodproductions%2ecom&lc=US&item_name=Paris%20Holley&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: async,headjs,asynchronous,performance,javascript
 Requires at least: 3.5
 Tested up to: 3.5
 Stable tag: trunk
+
+== Description ==
 
 Improve page load performance by asynchronously loading javascript using head.js
 
