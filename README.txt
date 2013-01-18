@@ -28,15 +28,14 @@ https://github.com/parisholley/wordpress-asynchronous-javascript/
 
 == Frequently Asked Questions ==
 
-= How do I include a script that I do not control but has a dependency on another script? =
-
-In your theme, use the static AsynchronousJS::wp_enqueue_async_script() method, which is API compatible with wp_enqueue_script($handle, $src, $deps). Using this method will cause the $src to load ONLY when scripts with the handles defined in $deps have been loaded.
-
 = Is there any potential problems with other plugins? =
 
-As long as those plugins are using the built-in wordpress script queuing and not attempting to output scripts manually (such as invoking wp_print_scripts()), you should have no problems.
+As long as those plugins are using the built-in wordpress script queuing and not attempting to output scripts manually (such as invoking wp_print_scripts()), you should have no problems. If you find plugins that don't work properly (or without modifications), let me know and I will maintain an incompatibility list.
 
 == Changelog ==
+
+= 1.1.1 =
+* Updated readme
 
 = 1.1 =
 * Removed `wp_enqueue_async_script()`, should be able to use normal wordpress method `wp_enqueue_script()`
