@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Asynchronous Assets (Javascript and CSS)
-Plugin URI: https://github.com/parisholley/Wordpress-Asynchronous-Assets
-Description: Improve page load performance by asynchronously loading javascript and CSS files using head.js
+Plugin Name: Asynchronous Javascript
+Plugin URI: https://github.com/parisholley/wordpress-asynchronous-javascript
+Description: Improve page load performance by asynchronously loading javascript and files using head.js in your wordpress website.
 Version: 1.0
 Author: Paris Holley
 Author URI: http://www.linkedin.com/in/parisholley
@@ -25,17 +25,17 @@ License:
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   
 */
-class AsynchronousAssets {
+class AsynchronousJS {
 	private static $queue = array();
 	private static $depends = array();
 	private static $head_loaded = false;
 
 	function init() {
 		if(!defined('WP_ADMIN') || !WP_ADMIN){
-			add_action('wp_print_scripts', 'AsynchronousAssets::action_prevent_script_output' );
-			add_filter('script_loader_src', 'AsynchronousAssets::filter_queue_script', 10, 2 );
-			add_filter('print_footer_scripts', 'AsynchronousAssets::filter_headjs' );
-			add_filter('print_head_scripts', 'AsynchronousAssets::filter_headjs' );
+			add_action('wp_print_scripts', 'AsynchronousJS::action_prevent_script_output' );
+			add_filter('script_loader_src', 'AsynchronousJS::filter_queue_script', 10, 2 );
+			add_filter('print_footer_scripts', 'AsynchronousJS::filter_headjs' );
+			add_filter('print_head_scripts', 'AsynchronousJS::filter_headjs' );
 		}
 	}
 
@@ -98,5 +98,5 @@ class AsynchronousAssets {
 	}
 }
 
-AsynchronousAssets::init();
+AsynchronousJS::init();
 ?>
