@@ -43,6 +43,9 @@ This plugin will not work out the box with the following plugins (unless they ar
 
 == Changelog ==
 
+= 1.1.2 =
+* Starting incompatibility list
+
 = 1.1.1 =
 * Updated readme and versioning
 
