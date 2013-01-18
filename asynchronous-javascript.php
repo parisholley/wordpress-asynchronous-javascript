@@ -2,8 +2,8 @@
 /*
 Plugin Name: Asynchronous Javascript
 Plugin URI: https://github.com/parisholley/wordpress-asynchronous-javascript
-Description: Improve page load performance by asynchronously loading javascript and files using head.js in your wordpress website.
-Version: 1.0
+Description: Improve page load performance by asynchronously loading javascript using head.js
+Version: 1.1
 Author: Paris Holley
 Author URI: http://www.linkedin.com/in/parisholley
 Author Email: mail@parisholley.com
@@ -54,28 +54,27 @@ class AsynchronousJS {
 	 * Wordpress has no ability to hook into script queuing, so this is a work around
 	 **/
 	function filter_queue_script($src, $handle) {
-		self::$queue[$handle] = "{'{$handle}': '$src'}";
+		global $wp_scripts;
+
+		self::$depends[$handle] = array(
+			'src' => $src,
+			'deps' => $wp_scripts->registered[$handle]->deps
+		);
 	}
 
 	/**
 	 * Outputs headjs code in header or footer
 	 **/
 	function filter_headjs(){
-		if(count(self::$queue) > 0){
+		if(count(self::$depends) > 0){
 			if(!self::$head_loaded){
 				echo '<script type="text/javascript" src="' . plugins_url( '/js/head.load.min.js', __FILE__ ) . '"></script>';
 			
 				self::$head_loaded = true;
 			}
-
-			echo '<script type="text/javascript">head.js(' . implode(',', self::$queue) . ')</script>';
-
-			self::$queue = array();
-		}
-
-		if(count(self::$depends) > 0){
+			
 			foreach(self::$depends as $handle => $depend){
-				if(is_array($depend['deps'])){
+				if(is_array($depend['deps']) && count($depend['deps']) > 0){
 					echo '<script type="text/javascript">head.ready("' . implode(',', $depend['deps']) . '", function(){head.js({"' . $handle . '": "' . $depend['src'] . '"})})</script>';
 				}elseif(is_string($depend['deps'])){
 					echo '<script type="text/javascript">head.ready("' . $depend['deps'] . '", function(){head.js({"' . $handle . '": "' . $depend['src'] . '"})})</script>';
@@ -88,13 +87,6 @@ class AsynchronousJS {
 		}
 
 		return false; // prevent printing of javascript
-	}
-
-	function wp_enqueue_async_script($handle, $src, $deps){
-		self::$depends[$handle] = array(
-			'src' => $src,
-			'deps' => $deps
-		);
 	}
 }
 
