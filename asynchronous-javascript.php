@@ -3,7 +3,7 @@
 Plugin Name: Asynchronous Javascript
 Plugin URI: http://wordpress.org/extend/plugins/asynchronous-javascript/
 Description: Improve page load performance by asynchronously loading javascript using head.js
-Version: 1.2.0
+Version: 1.2.1
 Author: Paris Holley
 Author URI: http://www.linkedin.com/in/parisholley
 Author Email: mail@parisholley.com
@@ -32,10 +32,10 @@ class AsynchronousJS {
 
 	function init() {
 		if(!defined('WP_ADMIN') || !WP_ADMIN){
-			add_action('wp_print_scripts', 'AsynchronousJS::action_prevent_script_output' );
-			add_filter('script_loader_src', 'AsynchronousJS::filter_queue_script', 10, 2 );
-			add_filter('print_footer_scripts', 'AsynchronousJS::filter_headjs' );
-			add_filter('print_head_scripts', 'AsynchronousJS::filter_headjs' );
+			add_action('wp_print_scripts', array('AsynchronousJS', 'action_prevent_script_output') );
+			add_filter('script_loader_src', array('AsynchronousJS', 'filter_queue_script'), 10, 2 );
+			add_filter('print_footer_scripts', array('AsynchronousJS', 'filter_headjs') );
+			add_filter('print_head_scripts', array('AsynchronousJS', 'filter_headjs') );
 		}
 	}
 

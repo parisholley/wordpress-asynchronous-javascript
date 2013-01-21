@@ -43,6 +43,9 @@ This plugin will not work out the box with the following plugins (unless they ar
 
 == Changelog ==
 
+= 1.2.1 =
+* Fixed static reference for PHP < 5.2.3
+
 = 1.2.0 =
 * Wordpress already orders dependencies, updated as head.js doesn't support multiple dependency resolution
 
