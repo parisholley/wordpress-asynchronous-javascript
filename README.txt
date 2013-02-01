@@ -43,6 +43,9 @@ This plugin will not work out the box with the following plugins (unless they ar
 
 == Changelog ==
 
+= 1.3.0 =
+* Ability to exclude files by filename or queue id from being loaded asynchronously
+
 = 1.2.1 =
 * Fixed static reference for PHP < 5.2.3
 
