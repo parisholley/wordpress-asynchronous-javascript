@@ -3,7 +3,7 @@
 Plugin Name: Asynchronous Javascript
 Plugin URI: http://wordpress.org/extend/plugins/asynchronous-javascript/
 Description: Improve page load performance by asynchronously loading javascript using head.js
-Version: 1.3.0
+Version: 1.3.1
 Author: Paris Holley
 Author URI: http://www.linkedin.com/in/parisholley
 Author Email: mail@parisholley.com
@@ -131,7 +131,7 @@ class AsynchronousJS {
 				$exclude = false;
 
 				foreach($files as $file){
-					if(strpos($depend['src'], $file) !== false){
+					if(!empty($file) && strpos($depend['src'], $file) !== false){
 						$exclude = true;
 						break;
 					}
