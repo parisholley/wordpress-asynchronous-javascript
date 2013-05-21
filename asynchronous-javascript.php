@@ -86,6 +86,14 @@ class AsynchronousJS {
 					'title' => 'Exclude by File',
 					'desc' => 'Enter a comma delimited list (ie: "file1.js,file2.js").',
 					'sub_desc' => 'If you do not know the script key, you exclude based on the file name.'
+				),
+				'head_file' => array(
+					'id' => 'head_file',
+					'type' => 'text',
+					'title' => 'Select Head.js File',
+					'desc' => 'Enter the filename of the head.js file in the js folder.',
+					'sub_desc' => 'This is an advanced setting, leave it as default if you are unsure of what it does.',
+					'std' => 'head.load.min.js'
 				)
 			)
 		));
@@ -146,7 +154,7 @@ class AsynchronousJS {
 
 			if(count($handles) > 0){
 				if(!self::$head_loaded){
-					echo '<script type="text/javascript" src="' . plugins_url( '/js/head.load.min.js', __FILE__ ) . '"></script>';
+					echo '<script type="text/javascript" src="' . plugins_url( '/js/'.$options['head_file'], __FILE__ ) . '"></script>';
 				
 					self::$head_loaded = true;
 				}
