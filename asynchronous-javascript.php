@@ -98,7 +98,10 @@ class AsynchronousJS {
 			)
 		));
 
-		new NHP_Options($sections, $args);
+		$NHP_Options = new NHP_Options($sections, $args);
+		
+		if (!$NHP_Options->get('head_file'))
+      $NHP_Options->set('head_file', $sections[0]['fields']['head_file']['std']);
 	}
 
 	/**
