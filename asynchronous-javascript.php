@@ -34,6 +34,7 @@ class AsynchronousJS {
 	private static $queue = array();
 	private static $depends = array();
 	private static $head_loaded = false;
+	private static $default_head_file = 'head.load.min.js';
 
 	function init() {
 		if(!defined('WP_ADMIN') || !WP_ADMIN){
@@ -86,11 +87,21 @@ class AsynchronousJS {
 					'title' => 'Exclude by File',
 					'desc' => 'Enter a comma delimited list (ie: "file1.js,file2.js").',
 					'sub_desc' => 'If you do not know the script key, you exclude based on the file name.'
+				),
+				'head_file' => array(
+					'id' => 'head_file',
+					'type' => 'text',
+					'title' => 'Select Head.js File',
+					'desc' => 'Enter the filename of the head.js file in the js folder.',
+					'sub_desc' => 'This is an advanced setting, leave it as default if you are unsure of what it does.',
+					'std' => self::$default_head_file
 				)
 			)
 		));
 
-		new NHP_Options($sections, $args);
+		$NHP_Options = new NHP_Options($sections, $args);
+		if (empty($NHP_Options->options['head_file']))
+      $NHP_Options->set('head_file', self::$default_head_file);
 	}
 
 	/**
@@ -124,6 +135,9 @@ class AsynchronousJS {
 		$names = split(',', $options['exclude_name']);
 		$files = split(',', $options['exclude_js']);
 
+		if (empty($options['head_file']))
+      $options['head_file'] == self::$default_head_file;
+
 		if(count(self::$depends) > 0){
 			$handles = array();
 
@@ -146,7 +160,7 @@ class AsynchronousJS {
 
 			if(count($handles) > 0){
 				if(!self::$head_loaded){
-					echo '<script type="text/javascript" src="' . plugins_url( '/js/head.load.min.js', __FILE__ ) . '"></script>';
+					echo '<script type="text/javascript" src="' . plugins_url( '/js/'.$options['head_file'], __FILE__ ) . '"></script>';
 				
 					self::$head_loaded = true;
 				}
