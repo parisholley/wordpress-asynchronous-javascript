@@ -34,6 +34,7 @@ class AsynchronousJS {
 	private static $queue = array();
 	private static $depends = array();
 	private static $head_loaded = false;
+	private static $default_head_file = 'head.load.min.js';
 
 	function init() {
 		if(!defined('WP_ADMIN') || !WP_ADMIN){
@@ -93,15 +94,14 @@ class AsynchronousJS {
 					'title' => 'Select Head.js File',
 					'desc' => 'Enter the filename of the head.js file in the js folder.',
 					'sub_desc' => 'This is an advanced setting, leave it as default if you are unsure of what it does.',
-					'std' => 'head.load.min.js'
+					'std' => self::$default_head_file
 				)
 			)
 		));
 
 		$NHP_Options = new NHP_Options($sections, $args);
-		
-		if (!$NHP_Options->get('head_file'))
-      $NHP_Options->set('head_file', $sections[0]['fields']['head_file']['std']);
+		if (empty($NHP_Options->options['head_file']))
+      $NHP_Options->set('head_file', self::$default_head_file);
 	}
 
 	/**
@@ -134,6 +134,9 @@ class AsynchronousJS {
 		$options = get_option('asyncjs');
 		$names = split(',', $options['exclude_name']);
 		$files = split(',', $options['exclude_js']);
+
+		if (empty($options['head_file']))
+      $options['head_file'] == self::$default_head_file;
 
 		if(count(self::$depends) > 0){
 			$handles = array();
