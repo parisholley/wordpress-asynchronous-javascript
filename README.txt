@@ -43,6 +43,9 @@ This plugin will not work out the box with the following plugins (unless they ar
 
 == Changelog ==
 
+= 1.3.3 =
+* Fixed bug introduced in last version
+
 = 1.3.2 =
 * Ability to specify your own head.js file (thanks to DeanStr)
 
