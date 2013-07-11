@@ -134,7 +134,7 @@ class AsynchronousJS {
 		$files = split(',', $options['exclude_js']);
 
 		if (empty($options['head_file'])){
-			$options['head_file'] == self::$default_head_file;
+			$options['head_file'] = self::$default_head_file;
 		}
 
 		if(count(self::$depends) > 0){
