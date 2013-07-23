@@ -95,6 +95,13 @@ class AsynchronousJS {
 					'desc' => 'Enter the filename of the head.js file in the js folder.',
 					'sub_desc' => 'This is an advanced setting, leave it as default if you are unsure of what it does.',
 					'std' => self::$default_head_file
+				),
+				'always_on' => array(
+					'id' => 'always_on',
+					'type' => 'checkbox',
+					'title' => 'Always include head.js file',
+					'desc' => 'Do you want to always include the head.js file in your head section even if there are no js files to output?',
+					'sub_desc' => 'This is useful if you\'re using some of the other features of head.js',
 				)
 			)
 		));
@@ -136,6 +143,11 @@ class AsynchronousJS {
 		if (empty($options['head_file'])){
 			$options['head_file'] = self::$default_head_file;
 		}
+		
+		if($options['always_on'] && !self::$head_loaded){
+      echo '<script type="text/javascript" src="' . plugins_url( '/js/'.$options['head_file'], __FILE__ ) . '"></script>';
+      self::$head_loaded = true;
+    }
 
 		if(count(self::$depends) > 0){
 			$handles = array();
