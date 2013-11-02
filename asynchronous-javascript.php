@@ -3,7 +3,7 @@
 Plugin Name: Asynchronous Javascript
 Plugin URI: http://wordpress.org/extend/plugins/asynchronous-javascript/
 Description: Improve page load performance by asynchronously loading javascript using head.js
-Version: 1.3.4
+Version: 1.3.5
 Author: Paris Holley
 Author URI: http://www.linkedin.com/in/parisholley
 Author Email: mail@parisholley.com
@@ -144,10 +144,12 @@ class AsynchronousJS {
 			$options['head_file'] = self::$default_head_file;
 		}
 		
-		if($options['always_on'] && !self::$head_loaded){
-      echo '<script type="text/javascript" src="' . plugins_url( '/js/'.$options['head_file'], __FILE__ ) . '"></script>';
-      self::$head_loaded = true;
-    }
+		$headinclude = '<script type="text/javascript" src="' . plugins_url( '/js/'.$options['head_file'], __FILE__ ) . '"></script>';
+
+		if(isset($options['always_on']) && $options['always_on'] && !self::$head_loaded){
+			echo $headinclude;
+			self::$head_loaded = true;
+		}
 
 		if(count(self::$depends) > 0){
 			$handles = array();
@@ -173,7 +175,7 @@ class AsynchronousJS {
 
 			if(count($handles) > 0){
 				if(!self::$head_loaded){
-					echo '<script type="text/javascript" src="' . plugins_url( '/js/'.$options['head_file'], __FILE__ ) . '"></script>';
+					echo $headinclude;
 				
 					self::$head_loaded = true;
 				}

@@ -43,6 +43,9 @@ This plugin will not work out the box with the following plugins (unless they ar
 
 == Changelog ==
 
+= 1.3.5 =
+* Ability to mark headjs as always in header (thanks DeanStr)
+
 = 1.3.4 =
 * Fixed notices
 * Added filter to alter src location
