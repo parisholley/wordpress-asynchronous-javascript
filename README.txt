@@ -43,6 +43,10 @@ This plugin will not work out the box with the following plugins (unless they ar
 
 == Changelog ==
 
+= 1.3.4 =
+* Fixed notices
+* Added filter to alter src location
+
 = 1.3.3 =
 * Fixed bug introduced in last version
 

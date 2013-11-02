@@ -36,7 +36,7 @@ class AsynchronousJS {
 	private static $head_loaded = false;
 	private static $default_head_file = 'head.load.min.js';
 
-	function init() {
+	static function init() {
 		if(!defined('WP_ADMIN') || !WP_ADMIN){
 			add_action('wp_print_scripts', array('AsynchronousJS', 'action_prevent_script_output') );
 			add_filter('script_loader_src', array('AsynchronousJS', 'filter_queue_script'), 10, 2 );
@@ -47,7 +47,7 @@ class AsynchronousJS {
 		}
 	}
 
-	function admin(){
+	static function admin(){
 		$args = array();
 
 		$args['share_icons']['twitter'] = array(
@@ -105,7 +105,7 @@ class AsynchronousJS {
 	/**
 	 * Prevent wordpress from outputing scripts to page
 	 **/
-	function action_prevent_script_output() {
+	static function action_prevent_script_output() {
 		global $wp_scripts, $concatenate_scripts;
 
 		$concatenate_scripts = true;
@@ -116,7 +116,7 @@ class AsynchronousJS {
 	/**
 	 * Wordpress has no ability to hook into script queuing, so this is a work around
 	 **/
-	function filter_queue_script($src, $handle) {
+	static function filter_queue_script($src, $handle) {
 		global $wp_scripts;
 
 		self::$depends[$handle] = array(
@@ -128,10 +128,10 @@ class AsynchronousJS {
 	/**
 	 * Outputs headjs code in header or footer
 	 **/
-	function filter_headjs(){
+	static function filter_headjs(){
 		$options = get_option('asyncjs');
-		$names = split(',', $options['exclude_name']);
-		$files = split(',', $options['exclude_js']);
+		$names = explode(',', $options['exclude_name']);
+		$files = explode(',', $options['exclude_js']);
 
 		if (empty($options['head_file'])){
 			$options['head_file'] = self::$default_head_file;
@@ -150,10 +150,12 @@ class AsynchronousJS {
 					}
 				}
 
+				$src = apply_filters('async_js_src', $depend['src']);
+
 				if(!in_array($handle, $names) && !$exclude){
-					$handles[] = '{"' . $handle . '": "' . $depend['src'] . '"}';
+					$handles[] = '{"' . $handle . '": "' . $src . '"}';
 				}else{
-					echo '<script type="text/javascript" src="' . $depend['src'] . '"></script>';
+					echo '<script type="text/javascript" src="' . $src . '"></script>';
 				}
 			}
 
